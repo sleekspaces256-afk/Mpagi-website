@@ -1,0 +1,1163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mpagi Denis Chris – Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+    :root {
+      --bg:     #ffffff;
+      --bg2:    #f0fdf4;
+      --bg3:    #dcfce7;
+      --bg4:    #bbf7d0;
+      --white:  #14532d;
+      --light:  #1f2937;
+      --charcoal:#36454f;
+      --muted:  #4b5563;
+
+      --violet: #16a34a;
+      --pink:   #22c55e;
+      --cyan:   #15803d;
+      --gold:   #14532d;
+      --green:  #16a34a;
+      --orange: #16a34a;
+      --red:    #14532d;
+
+      --g1: linear-gradient(135deg, #16a34a, #14532d);
+      --g2: linear-gradient(135deg, #4ade80, #166534);
+      --g3: linear-gradient(135deg, #dcfce7, #86efac);
+      --g4: linear-gradient(135deg, #bbf7d0, #16a34a);
+      --g5: linear-gradient(135deg, #22c55e, #14532d);
+
+      --border: rgba(20,83,45,.15);
+      --bstr:   rgba(20,83,45,.25);
+    }
+
+    html { scroll-behavior:smooth; }
+    body { font-family:'Poppins',sans-serif; background:var(--bg); color:var(--light); overflow-x:hidden; }
+
+    ::-webkit-scrollbar { width:5px; }
+    ::-webkit-scrollbar-track { background:var(--bg2); }
+    ::-webkit-scrollbar-thumb { background:#16a34a; border-radius:10px; }
+
+    /* ── NAV ── */
+    nav {
+      position:fixed; top:0; left:0; right:0; z-index:999;
+      display:flex; justify-content:space-between; align-items:center;
+      padding:1.2rem 6%;
+      background:rgba(20,83,45,.95); backdrop-filter:blur(20px);
+      border-bottom:1px solid rgba(255,255,255,.12);
+      transition:padding .3s;
+    }
+    nav.scrolled { padding:.75rem 6%; background:rgba(20,83,45,.98); }
+
+    .logo {
+      font-size:1.2rem; font-weight:900; text-decoration:none;
+      background:linear-gradient(135deg,#ffffff,#dcfce7); -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent; background-clip:text;
+      letter-spacing:.5px;
+    }
+
+    .nav-list { display:flex; gap:2rem; list-style:none; }
+    .nav-list a {
+      color:rgba(255,255,255,.8); text-decoration:none; font-size:.85rem;
+      font-weight:500; position:relative; transition:color .2s;
+    }
+    .nav-list a::after {
+      content:''; position:absolute; bottom:-4px; left:0;
+      width:0; height:2px; background:linear-gradient(90deg,#dcfce7,#4ade80);
+      border-radius:2px; transition:width .3s;
+    }
+    .nav-list a:hover, .nav-list a.active { color:#ffffff; }
+    .nav-list a:hover::after, .nav-list a.active::after { width:100%; }
+
+    .nbtn {
+      background:var(--g1) !important; color:#ffffff !important;
+      padding:.5rem 1.4rem; border-radius:50px; font-weight:700 !important;
+      box-shadow:0 4px 18px rgba(22,163,74,.35);
+    }
+    .nbtn::after { display:none !important; }
+    .nbtn:hover { opacity:.88; transform:translateY(-1px); }
+
+    .ham { display:none; flex-direction:column; gap:5px; background:none; border:none; cursor:pointer; padding:4px; }
+    .ham span { display:block; width:22px; height:2px; background:var(--white); border-radius:2px; transition:transform .3s, opacity .3s; }
+    .ham.open span:nth-child(1) { transform:translateY(7px) rotate(45deg); }
+    .ham.open span:nth-child(2) { opacity:0; }
+    .ham.open span:nth-child(3) { transform:translateY(-7px) rotate(-45deg); }
+
+    /* ── SHARED SECTION SYSTEM ── */
+    section { padding:7rem 6%; }
+    .wrap { max-width:1180px; margin:0 auto; }
+
+    /* Every alternate section gets a subtle background shift */
+    .sec-alt { background:linear-gradient(180deg, var(--bg2) 0%, var(--bg) 100%); }
+    .sec-plain { background:var(--bg); }
+
+    /* Shared section header */
+    .sh { text-align:center; margin-bottom:4rem; }
+    .slabel {
+      display:inline-block; font-size:.65rem; font-weight:800;
+      letter-spacing:4px; text-transform:uppercase;
+      color:var(--green); background:rgba(22,163,74,.08);
+      border:1px solid rgba(22,163,74,.25);
+      padding:.3rem 1.1rem; border-radius:50px; margin-bottom:1rem;
+    }
+    .stitle { font-size:clamp(2rem,3.5vw,2.6rem); font-weight:800; color:var(--white); margin-bottom:.6rem; line-height:1.2; }
+    .stitle span { background:var(--g1); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+    .ssub { color:var(--charcoal); max-width:520px; margin:0 auto; line-height:1.75; font-size:.92rem; }
+    .rule { width:52px; height:4px; background:var(--g1); border-radius:4px; margin:1rem auto 0; }
+
+    /* Shared card base — used in about, education, skills, career */
+    .card-base {
+      background:linear-gradient(135deg, var(--bg2), var(--bg3));
+      border:1px solid var(--border); border-radius:16px;
+      padding:2rem; position:relative; overflow:hidden;
+      transition:transform .3s, box-shadow .3s, border-color .3s;
+    }
+    .card-base:hover { transform:translateY(-5px); }
+
+    /* Top colour bar shared by all cards */
+    .card-base::before {
+      content:''; position:absolute; top:0; left:0; right:0; height:3px;
+      background:var(--g1); border-radius:16px 16px 0 0;
+    }
+
+    /* Shared period/tag pill */
+    .pill {
+      display:inline-block; font-size:.67rem; font-weight:800;
+      letter-spacing:1px; text-transform:uppercase;
+      padding:.22rem .88rem; border-radius:50px; margin-bottom:1rem;
+    }
+
+    /* Shared badge row at bottom of cards */
+    .bdgs { display:flex; flex-wrap:wrap; gap:.4rem; }
+    .bdg  {
+      font-size:.7rem; font-weight:600; padding:.23rem .78rem; border-radius:50px;
+      background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.12); color:var(--light);
+    }
+
+    /* Shared buttons */
+    .btn {
+      display:inline-block; text-decoration:none; font-family:'Poppins',sans-serif;
+      font-weight:700; font-size:.88rem; padding:.85rem 2rem;
+      border-radius:50px; border:none; cursor:pointer;
+      transition:transform .2s, box-shadow .2s, opacity .2s;
+    }
+    .btn:hover { transform:translateY(-3px); }
+    .bp { background:var(--g1); color:#ffffff; box-shadow:0 6px 25px rgba(22,163,74,.28); }
+    .bp:hover { box-shadow:0 10px 35px rgba(22,163,74,.4); }
+    .bo { background:transparent; color:var(--white); border:2px solid rgba(20,83,45,.35); }
+    .bo:hover { border-color:var(--green); box-shadow:0 0 20px rgba(22,163,74,.18); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height:100vh; display:flex; align-items:center;
+      padding:110px 6% 105px; position:relative; overflow:hidden;
+    }
+
+    .hero::after {
+      content:''; position:absolute; inset:0; z-index:0; pointer-events:none;
+      background:linear-gradient(90deg,transparent 0%,rgba(74,222,128,.09) 50%,transparent 100%);
+      transform:translateX(-100%);
+      animation:heroSweep 9s ease-in-out infinite;
+    }
+    @keyframes heroSweep {
+      0%,15% { transform:translateX(-100%); }
+      75%,100% { transform:translateX(100%); }
+    }
+
+    /* Animated gradient blobs */
+    .hero::before {
+      content:''; position:absolute; width:600px; height:600px;
+      border-radius:50%; top:-100px; right:-100px;
+      background:radial-gradient(circle, rgba(255,255,255,.07) 0%, transparent 70%);
+      animation:blob1 8s ease-in-out infinite;
+    }
+    .hero-blob2 {
+      position:absolute; width:500px; height:500px; border-radius:50%;
+      bottom:-150px; left:-100px;
+      background:radial-gradient(circle, rgba(200,200,200,.06) 0%, transparent 70%);
+      animation:blob2 10s ease-in-out infinite;
+    }
+    .hero-blob3 {
+      position:absolute; width:400px; height:400px; border-radius:50%;
+      top:30%; left:35%;
+      background:radial-gradient(circle, rgba(150,150,150,.04) 0%, transparent 70%);
+      animation:blob1 12s ease-in-out infinite reverse;
+    }
+    @keyframes blob1 { 0%,100%{transform:translate(0,0) scale(1)} 50%{transform:translate(30px,-40px) scale(1.1)} }
+    @keyframes blob2 { 0%,100%{transform:translate(0,0) scale(1)} 50%{transform:translate(-30px,40px) scale(1.15)} }
+
+    /* grid overlay */
+    .hero-grid-bg {
+      position:absolute; inset:0; pointer-events:none;
+      background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);
+      background-size:60px 60px;
+    }
+
+    .hgrid {
+      display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:center;
+      max-width:1180px; margin:0 auto; width:100%; position:relative; z-index:1;
+      animation:heroEnter .9s ease-out both;
+    }
+    @keyframes heroEnter {
+      from { opacity:0; transform:translateX(-36px); }
+      to { opacity:1; transform:translateX(0); }
+    }
+
+    .hbadge {
+      display:inline-flex; align-items:center; gap:.55rem;
+      background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.2);
+      color:#cccccc; font-size:.7rem; font-weight:700;
+      letter-spacing:2px; text-transform:uppercase;
+      padding:.4rem 1.1rem; border-radius:50px; margin-bottom:1.6rem;
+    }
+    .hbadge .dot { width:8px; height:8px; background:var(--white); border-radius:50%; animation:pulse 2s ease-in-out infinite; }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.3;transform:scale(1.5)} }
+
+    .hname { font-size:clamp(3rem,6vw,4.8rem); font-weight:900; line-height:1.05; color:var(--white); margin-bottom:.6rem; }
+    .hname .grd { background:var(--g1); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+
+    .hrole {
+      font-size:1.1rem; font-weight:600; margin-bottom:1.5rem;
+      color:var(--charcoal);
+    }
+
+    .hero-company-switcher {
+      position:absolute; z-index:2; bottom:1.5rem;
+      left:calc(50% - 50vw); width:100vw; overflow:hidden;
+      padding:1rem 0;
+      border-top:1px solid rgba(255,255,255,.12);
+      border-bottom:1px solid rgba(255,255,255,.12);
+      background:linear-gradient(90deg,transparent,rgba(255,255,255,.06),transparent);
+      mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);
+    }
+    .hero-company-words {
+      display:flex; width:max-content;
+      animation:ventureMarquee 28s linear infinite;
+      will-change:transform;
+    }
+    .hero-company-group {
+      display:flex; align-items:center; gap:clamp(2rem,5vw,5rem);
+      flex:none; padding-right:clamp(2rem,5vw,5rem);
+    }
+    .hero-company-group span {
+      display:inline-flex; align-items:center; gap:.7rem;
+      color:var(--white); font-size:clamp(.8rem,1.3vw,1rem);
+      font-weight:700; letter-spacing:.08em; text-transform:uppercase;
+      white-space:nowrap;
+    }
+    .hero-company-group span::before {
+      content:''; width:.48rem; height:.48rem; flex:none;
+      border-radius:50%; background:#4ade80;
+      box-shadow:0 0 12px rgba(74,222,128,.8);
+    }
+    @keyframes ventureMarquee {
+      from { transform:translateX(-50%); }
+      to { transform:translateX(0); }
+    }
+    @media (prefers-reduced-motion:reduce) {
+      .hero::after, .hgrid, .hero-company-words { animation:none; }
+      .hero-company-switcher { position:relative; left:auto; bottom:auto; width:100%; margin-top:2rem; mask-image:none; }
+      .hero-company-words { width:100%; justify-content:center; }
+      .hero-company-group { flex-wrap:wrap; justify-content:center; padding-right:0; }
+      .hero-company-group[aria-hidden="true"] { display:none; }
+    }
+
+    .hdesc { font-size:.95rem; line-height:1.85; color:var(--muted); max-width:480px; margin-bottom:2.5rem; }
+
+    .hstats {
+      display:flex; gap:2.5rem; margin-bottom:2.8rem;
+      padding-bottom:2.5rem; border-bottom:1px solid var(--border);
+    }
+    .sn {
+      display:block; font-size:2.2rem; font-weight:900;
+      background:var(--g3); -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent; background-clip:text;
+    }
+    .sl { display:block; font-size:.7rem; color:var(--muted); margin-top:.25rem; font-weight:500; }
+
+    .hbtns { display:flex; gap:1rem; flex-wrap:wrap; }
+
+    /* Avatar */
+    .avwrap { display:flex; justify-content:center; align-items:center; }
+    .avbox  { position:relative; width:340px; height:340px; }
+
+    .ring { position:absolute; border-radius:50%; animation:spin 22s linear infinite; }
+    .r1 { inset:-20px; border:2px dashed rgba(255,255,255,.15); }
+    .r2 { inset:-42px; border:1px dashed rgba(255,255,255,.08); animation-duration:36s; animation-direction:reverse; }
+    .r3 { inset:-64px; border:1px dashed rgba(255,255,255,.05); animation-duration:50s; }
+    @keyframes spin { to { transform:rotate(360deg); } }
+
+    .avglow {
+      position:absolute; inset:-20px; border-radius:50%;
+      background:conic-gradient(from 0deg, #ffffff, #888888, #cccccc, #ffffff);
+      animation:spin 6s linear infinite; opacity:.2; filter:blur(20px);
+    }
+    .avinner {
+      position:absolute; inset:3px; border-radius:50%;
+      background:linear-gradient(135deg, var(--bg2), var(--bg3));
+      display:flex; align-items:center; justify-content:center; font-size:0;
+      border:2px solid rgba(255,255,255,.25);
+      box-shadow:0 0 60px rgba(255,255,255,.08), inset 0 0 40px rgba(255,255,255,.04);
+      overflow:hidden;
+    }
+
+    .ftag {
+      position:absolute; border-radius:10px; padding:.55rem 1.1rem;
+      font-size:.74rem; font-weight:700; color:var(--white);
+      display:flex; align-items:center; gap:.4rem;
+      white-space:nowrap; box-shadow:0 8px 30px rgba(0,0,0,.5);
+    }
+    .ftl { top:10px; left:-65px; background:linear-gradient(135deg,var(--bg3),var(--bg4)); border:1px solid rgba(139,92,246,.4); animation:fa 4s ease-in-out infinite; }
+    .fbr { bottom:10px; right:-60px; background:linear-gradient(135deg,var(--bg3),var(--bg4)); border:1px solid rgba(6,182,212,.4); animation:fb 4s ease-in-out infinite 1.2s; }
+    @keyframes fa { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+    @keyframes fb { 0%,100%{transform:translateY(0)} 50%{transform:translateY(10px)} }
+
+    /* ── ABOUT ── */
+    #about { background:linear-gradient(180deg, var(--bg2) 0%, var(--bg) 100%); border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
+
+    .agrid { display:grid; grid-template-columns:1fr 1.3fr; gap:4rem; align-items:center; }
+
+    .acard {
+      background:linear-gradient(135deg, var(--bg3), var(--bg2));
+      border:1px solid var(--border); border-radius:16px; padding:2rem;
+      position:relative; overflow:hidden;
+      box-shadow:0 20px 60px rgba(0,0,0,.4);
+    }
+    .acard::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:var(--g1); }
+    .acard::after {
+      content:''; position:absolute; bottom:-80px; right:-80px;
+      width:200px; height:200px; border-radius:50%;
+      background:radial-gradient(circle, rgba(139,92,246,.15) 0%, transparent 70%);
+    }
+
+    .irow { display:flex; align-items:center; gap:1rem; padding:.9rem 0; border-bottom:1px solid rgba(139,92,246,.1); position:relative; z-index:1; }
+    .irow:last-child { border-bottom:none; }
+    .iico { width:42px; height:42px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:1.1rem; flex-shrink:0; }
+    .c1 { background:rgba(255,255,255,.1); box-shadow:0 0 12px rgba(255,255,255,.1); }
+    .c2 { background:rgba(200,200,200,.1); box-shadow:0 0 12px rgba(200,200,200,.1); }
+    .c3 { background:rgba(170,170,170,.1); box-shadow:0 0 12px rgba(170,170,170,.1); }
+    .c4 { background:rgba(140,140,140,.1); box-shadow:0 0 12px rgba(140,140,140,.1); }
+    .ilbl { font-size:.68rem; color:var(--muted); font-weight:600; letter-spacing:.5px; text-transform:uppercase; }
+    .ival { font-size:.95rem; color:var(--white); font-weight:700; }
+
+    .atxt h3 { font-size:1.6rem; font-weight:800; color:var(--charcoal); margin-bottom:1.1rem; }
+    .atxt p   { color:var(--muted); line-height:1.85; margin-bottom:1rem; font-size:.93rem; }
+    .atxt strong { color:var(--cyan); }
+
+    /* ── EDUCATION ── */
+    #education {
+      background:var(--bg);
+      position:relative;
+    }
+    #education::before {
+      content:''; position:absolute; inset:0;
+      background:radial-gradient(ellipse 80% 50% at 50% 0%, rgba(6,182,212,.06) 0%, transparent 70%);
+      pointer-events:none;
+    }
+
+    .timeline { position:relative; padding-left:2rem; max-width:760px; margin:0 auto; }
+    .timeline::before {
+      content:''; position:absolute; left:7px; top:0; bottom:0; width:3px;
+      background:linear-gradient(to bottom, var(--violet), var(--cyan), transparent);
+      border-radius:3px;
+    }
+
+    .tli { position:relative; padding-left:2.2rem; margin-bottom:2.6rem; }
+    .tli:last-child { margin-bottom:0; }
+    .tld {
+      position:absolute; left:-1.95rem; top:6px;
+      width:16px; height:16px; border-radius:50%;
+      background:var(--g1); box-shadow:0 0 0 4px rgba(139,92,246,.2), 0 0 16px rgba(139,92,246,.5);
+    }
+
+    .tlc {
+      background:linear-gradient(135deg, var(--bg2), var(--bg3));
+      border:1px solid var(--border); border-radius:16px; padding:2rem;
+      position:relative; overflow:hidden;
+      transition:border-color .3s, transform .3s, box-shadow .3s;
+    }
+    .tlc::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:var(--g1); border-radius:16px 16px 0 0; }
+    .tlc:hover { border-color:var(--violet); transform:translateX(8px); box-shadow:0 8px 30px rgba(139,92,246,.2); }
+
+    .tlp {
+      display:inline-block; font-size:.67rem; font-weight:800; color:var(--cyan);
+      background:rgba(6,182,212,.12); border:1px solid rgba(6,182,212,.3);
+      padding:.22rem .88rem; border-radius:50px; letter-spacing:1px; margin-bottom:.8rem;
+    }
+    .tldg { font-size:1.05rem; font-weight:800; color:var(--charcoal); margin-bottom:.25rem; }
+    .tlsc { font-size:.85rem; font-weight:700; color:var(--charcoal); margin-bottom:.6rem; }
+    .tltx { font-size:.83rem; color:var(--muted); line-height:1.75; }
+
+    /* ── SKILLS ── */
+    #skills {
+      background:linear-gradient(180deg, var(--bg2) 0%, var(--bg) 100%);
+      border-top:1px solid var(--border); border-bottom:1px solid var(--border);
+    }
+
+    .skgrid { display:grid; grid-template-columns:repeat(auto-fit,minmax(290px,1fr)); gap:1.8rem; }
+
+    .skcat {
+      border-radius:16px; padding:2rem; border:1px solid transparent;
+      position:relative; overflow:hidden;
+      transition:transform .3s, box-shadow .3s;
+    }
+    .skcat:hover { transform:translateY(-5px); box-shadow:0 20px 50px rgba(0,0,0,.4); }
+    .skcat::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; border-radius:16px 16px 0 0; opacity:1; }
+
+    .sc1 { background:linear-gradient(135deg, rgba(255,255,255,.07), rgba(13,13,13,.8)); border-color:rgba(255,255,255,.18); }
+    .sc1::before { background:var(--g1); }
+    .sc2 { background:linear-gradient(135deg, rgba(200,200,200,.07), rgba(13,13,13,.8)); border-color:rgba(200,200,200,.18); }
+    .sc2::before { background:var(--g2); }
+    .sc3 { background:linear-gradient(135deg, rgba(160,160,160,.07), rgba(13,13,13,.8)); border-color:rgba(160,160,160,.18); }
+    .sc3::before { background:var(--g3); }
+
+    .skh { display:flex; align-items:center; gap:.8rem; margin-bottom:1.6rem; position:relative; z-index:1; }
+    .skico { width:46px; height:46px; border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:1.3rem; }
+    .i1 { background:rgba(255,255,255,.15); box-shadow:0 0 15px rgba(255,255,255,.1); }
+    .i2 { background:rgba(200,200,200,.15); box-shadow:0 0 15px rgba(200,200,200,.1); }
+    .i3 { background:rgba(160,160,160,.15); box-shadow:0 0 15px rgba(160,160,160,.1); }
+    .sknm2 { font-size:1rem; font-weight:800; color:var(--charcoal); }
+
+    .skit { margin-bottom:1.1rem; position:relative; z-index:1; }
+    .skit:last-child { margin-bottom:0; }
+    .skrow { display:flex; justify-content:space-between; margin-bottom:.4rem; }
+    .sknm { font-size:.83rem; font-weight:600; color:var(--light); }
+    .skpc { font-size:.76rem; font-weight:800; }
+    .p1 { color:#ffffff; } .p2 { color:#cccccc; } .p3 { color:#aaaaaa; }
+    .skbar { height:7px; background:rgba(255,255,255,.08); border-radius:10px; overflow:hidden; }
+    .skfill { height:100%; border-radius:10px; width:0; transition:width 1.4s cubic-bezier(.4,0,.2,1); }
+    .sf1 { background:linear-gradient(90deg,#ffffff,#cccccc); box-shadow:0 0 10px rgba(255,255,255,.2); }
+    .sf2 { background:linear-gradient(90deg,#cccccc,#888888); box-shadow:0 0 10px rgba(200,200,200,.2); }
+    .sf3 { background:linear-gradient(90deg,#aaaaaa,#666666); box-shadow:0 0 10px rgba(160,160,160,.2); }
+
+    /* ── CAREER ── */
+    #career { background:var(--bg); position:relative; }
+    #career::before {
+      content:''; position:absolute; inset:0;
+      background:radial-gradient(ellipse 80% 50% at 50% 100%, rgba(139,92,246,.06) 0%, transparent 70%);
+      pointer-events:none;
+    }
+
+    #sleek-spaces {
+      background:linear-gradient(rgba(255,255,255,.55),rgba(240,253,244,.68)),url("sleek-spaces-bg.png") center/85% auto no-repeat;
+    }
+
+    .career-photo-wrap { max-width:980px; margin:0 auto 2.5rem; }
+    .career-photo {
+      display:block; width:100%; height:auto; aspect-ratio:16 / 9; object-fit:cover;
+      border-radius:18px; box-shadow:0 24px 60px rgba(0,0,0,.35);
+      border:1px solid rgba(255,255,255,.08);
+    }
+
+    .cagrid { display:grid; grid-template-columns:repeat(auto-fit,minmax(265px,1fr)); gap:1.8rem; }
+
+    .cacard {
+      background:linear-gradient(135deg, var(--bg2), var(--bg3));
+      border:1px solid var(--border); border-radius:16px; padding:2rem;
+      position:relative; overflow:hidden;
+      transition:transform .3s, box-shadow .3s, border-color .3s;
+    }
+    .cacard::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; border-radius:16px 16px 0 0; }
+    .cacard:hover { transform:translateY(-5px); }
+
+    .cv1::before { background:var(--g1); }
+    .cv1:hover { box-shadow:0 15px 45px rgba(255,255,255,.08); border-color:rgba(255,255,255,.3); }
+    .cv2::before { background:var(--g2); }
+    .cv2:hover { box-shadow:0 15px 45px rgba(200,200,200,.08); border-color:rgba(200,200,200,.3); }
+    .cv3::before { background:var(--g3); }
+    .cv3:hover { box-shadow:0 15px 45px rgba(160,160,160,.08); border-color:rgba(160,160,160,.3); }
+    .cv4::before { background:var(--g4); }
+    .cv4:hover { box-shadow:0 15px 45px rgba(130,130,130,.08); border-color:rgba(130,130,130,.3); }
+
+    .capr { display:inline-block; font-size:.68rem; font-weight:800; letter-spacing:1px; padding:.22rem .85rem; border-radius:50px; margin-bottom:1rem; }
+    .t1 { color:#ffffff; background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.2); }
+    .t2 { color:#dddddd; background:rgba(220,220,220,.1); border:1px solid rgba(220,220,220,.2); }
+    .t3 { color:#bbbbbb; background:rgba(180,180,180,.1); border:1px solid rgba(180,180,180,.2); }
+    .t4 { color:#999999; background:rgba(150,150,150,.1); border:1px solid rgba(150,150,150,.2); }
+
+    .carl { font-size:1.02rem; font-weight:800; color:var(--charcoal); margin-bottom:.25rem; }
+    .caco { font-size:.83rem; font-weight:500; color:var(--muted); margin-bottom:.8rem; }
+    .cadx { font-size:.83rem; color:var(--muted); line-height:1.75; margin-bottom:1.1rem; }
+    .bdgs { display:flex; flex-wrap:wrap; gap:.4rem; }
+    .bdg  { font-size:.7rem; font-weight:600; padding:.23rem .78rem; border-radius:50px; background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.12); color:var(--light); }
+
+    /* ── CONTACT ── */
+    #contact {
+      background:linear-gradient(180deg, var(--bg2) 0%, var(--bg) 100%);
+      border-top:1px solid var(--border);
+    }
+
+    .contact-cards { max-width:620px; margin:0 auto; display:flex; flex-direction:column; gap:1.3rem; }
+
+    .ccard {
+      display:flex; align-items:center; gap:1.3rem;
+      text-decoration:none; border-radius:16px; padding:2rem;
+      border:1px solid transparent;
+      transition:transform .25s, box-shadow .25s, border-color .25s;
+      position:relative; overflow:hidden;
+    }
+    .ccard::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; border-radius:16px 16px 0 0; }
+    .ccard:hover { transform:translateY(-5px); }
+
+    .cc1 { background:linear-gradient(135deg, rgba(255,255,255,.06), rgba(13,13,13,.8)); border-color:rgba(255,255,255,.18); }
+    .cc1::before { background:linear-gradient(90deg,#ffffff,#aaaaaa); }
+    .cc1:hover { box-shadow:0 12px 40px rgba(255,255,255,.1); border-color:rgba(255,255,255,.4); }
+    .cc2 { background:linear-gradient(135deg, rgba(200,200,200,.06), rgba(13,13,13,.8)); border-color:rgba(200,200,200,.18); }
+    .cc2::before { background:var(--g2); }
+    .cc2:hover { box-shadow:0 12px 40px rgba(200,200,200,.1); border-color:rgba(200,200,200,.4); }
+    .cc3 { background:linear-gradient(135deg, rgba(160,160,160,.06), rgba(13,13,13,.8)); border-color:rgba(160,160,160,.18); }
+    .cc3::before { background:var(--g3); }
+    .cc3:hover { box-shadow:0 12px 40px rgba(160,160,160,.1); border-color:rgba(160,160,160,.4); }
+
+    .ccard-ico { width:56px; height:56px; border-radius:14px; display:flex; align-items:center; justify-content:center; font-size:1.5rem; flex-shrink:0; }
+    .cc1 .ccard-ico { background:rgba(255,255,255,.12); box-shadow:0 0 20px rgba(255,255,255,.1); }
+    .cc2 .ccard-ico { background:rgba(200,200,200,.12); box-shadow:0 0 20px rgba(200,200,200,.1); }
+    .cc3 .ccard-ico { background:rgba(160,160,160,.12); box-shadow:0 0 20px rgba(160,160,160,.1); }
+
+    .ccard-lbl { font-size:.65rem; font-weight:800; letter-spacing:2.5px; text-transform:uppercase; margin-bottom:.3rem; }
+    .cc1 .ccard-lbl, .cc2 .ccard-lbl, .cc3 .ccard-lbl { color:var(--charcoal); }
+    .ccard-val { font-size:1.1rem; font-weight:700; color:var(--white); }
+
+    /* ── FOOTER ── */
+    footer {
+      background:var(--bg);
+      border-top:1px solid var(--border);
+      padding:2.2rem 6%;
+      display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem;
+    }
+    .flogo {
+      font-weight:900; font-size:1.05rem;
+      background:var(--g1); -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent; background-clip:text;
+    }
+    footer p { color:var(--muted); font-size:.78rem; }
+    .socials { display:flex; gap:.6rem; }
+    .soc {
+      width:38px; height:38px;
+      background:rgba(139,92,246,.1); border:1px solid var(--border);
+      border-radius:10px; display:flex; align-items:center; justify-content:center;
+      text-decoration:none; font-size:.95rem;
+      transition:background .2s, border-color .2s, box-shadow .2s;
+    }
+    .soc:hover { background:rgba(255,255,255,.12); border-color:var(--white); box-shadow:0 0 16px rgba(255,255,255,.15); }
+
+    .payment-form { display:grid; gap:.85rem; }
+    .payment-form label { display:grid; gap:.35rem; color:var(--light); font-size:.8rem; font-weight:600; }
+    .payment-form input {
+      width:100%; min-height:44px; padding:.65rem .8rem;
+      border:1px solid var(--border); border-radius:10px;
+      background:var(--bg); color:var(--light); font:inherit;
+    }
+    .payment-form input:focus { outline:2px solid var(--green); outline-offset:2px; }
+    .payment-form button { width:100%; border:0; cursor:pointer; }
+    .payment-form button:disabled { cursor:wait; opacity:.65; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width:960px) {
+      .hgrid, .agrid { grid-template-columns:1fr; gap:3rem; }
+      #library .wrap > div > div:first-child { order:-1; }
+      #library .wrap > div { grid-template-columns:1fr !important; gap:3rem; }
+      .avwrap { order:-1; }
+      .hgrid { text-align:center; }
+      .hdesc, .hbadge { margin-left:auto; margin-right:auto; }
+      .hstats, .hbtns { justify-content:center; }
+      .avbox { width:260px; height:260px; }
+      .ftag  { display:none; }
+    }
+    @media (max-width:768px) {
+      .nav-list {
+        display:none; position:fixed;
+        top:0; left:0; right:0; bottom:0;
+        background:rgba(5,8,22,.97);
+        flex-direction:column; align-items:center; justify-content:center; gap:2.5rem;
+      }
+      .nav-list.open { display:flex; }
+      .nav-list a { font-size:1.2rem; }
+      .ham { display:flex; }
+      section { padding:5rem 5%; }
+      .cagrid { grid-template-columns:1fr; }
+    }
+    @media (max-width:480px) {
+      .hstats { gap:1.4rem; flex-wrap:wrap; }
+      .btn { width:100%; text-align:center; display:block; }
+      .ccard-val { font-size:.92rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav id="nav">
+    <a href="#home" class="logo">Mpagi Denis Chris</a>
+    <ul class="nav-list" id="nl">
+      <li><a href="#about"     class="na">About</a></li>
+      <li><a href="#education" class="na">Education</a></li>
+      <li><a href="#skills"    class="na">Skills</a></li>
+      <li><a href="#career"    class="na">Career</a></li>
+      <li><a href="#sleek-spaces" class="na">Sleek Spaces</a></li>
+      <li><a href="#library"   class="na">Library</a></li>
+      <li><a href="#contact"   class="na nbtn">Hire Me</a></li>
+    </ul>
+    <button class="ham" id="ham" aria-label="Menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- HERO -->
+  <section id="home" class="hero">
+    <div class="hero-blob2"></div>
+    <div class="hero-blob3"></div>
+    <div class="hero-grid-bg"></div>
+    <div class="hgrid">
+      <div>
+        <div class="hbadge"><span class="dot"></span> Available for Opportunities</div>
+        <h1 class="hname">Mpagi Denis<br><span class="grd">Chris</span></h1>
+        <p class="hrole">Entrepreneur · Author · Visionary</p>
+        <p class="hdesc">A Ugandan entrepreneur, author, and visionary businessman with a passion for business, luxury spaces, property, and personal development — building ventures that create lasting impact.</p>
+        <div class="hstats">
+          <div><span class="sn">4+</span><span class="sl">Ventures Founded</span></div>
+          <div><span class="sn">2</span><span class="sl">Qualifications</span></div>
+          <div><span class="sn">∞</span><span class="sl">Ambition</span></div>
+        </div>
+        <div class="hbtns">
+          <a href="#career"  class="btn bp">View Ventures</a>
+          <a href="#contact" class="btn bo">Get In Touch</a>
+        </div>
+      </div>
+      <div class="avwrap">
+        <div class="avbox">
+          <div class="ring r1"></div>
+          <div class="ring r2"></div>
+          <div class="ring r3"></div>
+          <div class="avglow"></div>
+          <div class="avinner" style="font-size:0;padding:0;">
+            <img src="image.jpg" alt="Mpagi Denis Chris"
+                 style="width:100%;height:100%;object-fit:cover;border-radius:50%;display:block;"/>
+          </div>
+          <div class="ftag ftl">🏆 Entrepreneur</div>
+          <div class="ftag fbr">📍 Kampala, UG</div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-company-switcher" role="group" aria-label="Business ventures">
+      <div class="hero-company-words">
+        <div class="hero-company-group">
+          <span>Sleek Spaces</span>
+          <span>Luxury Car Importation</span>
+          <span>Luxury Transportation</span>
+          <span>Entrepreneur</span>
+        </div>
+        <div class="hero-company-group" aria-hidden="true">
+          <span>Sleek Spaces</span>
+          <span>Luxury Car Importation</span>
+          <span>Luxury Transportation</span>
+          <span>Entrepreneur</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="sec-alt">
+    <div class="wrap">
+      <div class="sh">
+        <span class="slabel">Introduction</span>
+        <h2 class="stitle">Who I <span>Am</span></h2>
+        <div class="rule"></div>
+      </div>
+      <div class="agrid">
+        <div class="acard">
+          <!-- Profile Photo -->
+          <div style="text-align:center;margin-bottom:1.5rem;position:relative;z-index:1;">
+            <div style="width:120px;height:120px;border-radius:50%;overflow:hidden;margin:0 auto 1rem;border:3px solid rgba(139,92,246,.5);box-shadow:0 0 24px rgba(139,92,246,.35);">
+              <img src="image.jpg" alt="Mpagi Denis Chris" style="width:100%;height:100%;object-fit:cover;display:block;"/>
+            </div>
+            <div style="font-size:1.1rem;font-weight:800;color:var(--white);">Mpagi Denis Chris</div>
+            <div style="font-size:.75rem;font-weight:600;color:var(--cyan);letter-spacing:2px;text-transform:uppercase;margin-top:.3rem;">Founder &amp; Business Director</div>
+          </div>
+          <!-- Info rows -->
+          <div class="irow">
+            <div class="iico c1">👤</div>
+            <div><div class="ilbl">Full Name</div><div class="ival">Mpagi Denis Chris</div></div>
+          </div>
+          <div class="irow">
+            <div class="iico c2">📍</div>
+            <div><div class="ilbl">Location</div><div class="ival">Buziga, Lukuli Road, Kampala</div></div>
+          </div>
+          <div class="irow">
+            <div class="iico c3">💼</div>
+            <div><div class="ilbl">Role</div><div class="ival">Founder &amp; Business Director</div></div>
+          </div>
+          <div class="irow">
+            <div class="iico c4">🟢</div>
+            <div><div class="ilbl">Status</div><div class="ival">Director — Open to Work</div></div>
+          </div>
+        </div>
+        <div class="atxt">
+          <h3>Hello, I'm Chris 👋</h3>
+          <p>Mpagi Denis Chris is a Ugandan entrepreneur, author, and a visionary businessman with a passion for business, luxury spaces, property, and personal development.</p>
+          <p>As a <strong>published author</strong>, Chris uses the power of writing to inspire individuals, share wisdom, and ignite a culture of ambition and personal excellence across Africa and beyond.</p>
+          <p>Through his <strong>luxury transportation company</strong>, Chris has redefined premium travel in Uganda — delivering first-class experiences for executives, high-profile events, and clients who demand elegance.</p>
+          <p>As the <strong>founder of Sleek Spaces</strong>, he creates and curates high-end interior environments and luxury properties, transforming spaces into statements of sophistication and purpose.</p>
+          <p>His <strong>mining ventures</strong> explore and unlock Uganda's vast mineral resources, positioning him as a bold voice in the resource and investment space — building generational wealth through strategic opportunity.</p>
+          <div style="margin-top:1.8rem;">
+            <a href="#contact" class="btn bp" style="font-size:.82rem;padding:.75rem 1.6rem;">Get In Touch</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section id="education" class="sec-plain">
+    <div class="wrap">
+      <div class="sh">
+        <span class="slabel">Education</span>
+        <h2 class="stitle">Academic <span>Background</span></h2>
+        <p class="ssub">A solid foundation built through formal education and continuous learning.</p>
+        <div class="rule"></div>
+      </div>
+      <div class="timeline">
+
+        <div class="tli">
+          <div class="tld"></div>
+          <div class="tlc">
+            <span class="tlp">Bachelor's Degree</span>
+            <div class="tldg">Bachelor of Business Administration (BBA)</div>
+            <div class="tlsc">Uganda</div>
+            <div class="tltx">Studied core business disciplines including management, finance, marketing, entrepreneurship, and organisational behaviour. Built a strong foundation for leading and growing ventures across multiple industries.</div>
+          </div>
+        </div>
+
+        <div class="tli">
+          <div class="tld"></div>
+          <div class="tlc">
+            <span class="tlp">Diploma</span>
+            <div class="tldg">Diploma in Public Relations</div>
+            <div class="tlsc">Uganda</div>
+            <div class="tltx">Gained expertise in strategic communication, media relations, brand storytelling, reputation management, and stakeholder engagement — skills that underpin Mpagi's work in brand development and public influence.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills" class="sec-alt">
+    <div class="wrap">
+      <div class="sh">
+        <span class="slabel">Skills</span>
+        <h2 class="stitle">Core <span>Competencies</span></h2>
+        <p class="ssub">A powerful combination of entrepreneurial skills and visionary thinking that drives results.</p>
+        <div class="rule"></div>
+      </div>
+      <div class="skgrid">
+
+        <div class="skcat sc1">
+          <div class="skh"><div class="skico i1">💼</div><div class="sknm2">Entrepreneurship &amp; Business</div></div>
+          <div class="skit"><div class="skrow"><span class="sknm">Entrepreneurship &amp; Business Skills</span><span class="skpc p1">95%</span></div><div class="skbar"><div class="skfill sf1" data-w="95"></div></div></div>
+          <div class="skit"><div class="skrow"><span class="sknm">Strategic Business Planning</span><span class="skpc p1">92%</span></div><div class="skbar"><div class="skfill sf1" data-w="92"></div></div></div>
+        </div>
+
+        <div class="skcat sc2">
+          <div class="skh"><div class="skico i2">👑</div><div class="sknm2">Leadership &amp; People</div></div>
+          <div class="skit"><div class="skrow"><span class="sknm">Leadership &amp; Team Management</span><span class="skpc p2">90%</span></div><div class="skbar"><div class="skfill sf2" data-w="90"></div></div></div>
+          <div class="skit"><div class="skrow"><span class="sknm">Public Speaking</span><span class="skpc p2">88%</span></div><div class="skbar"><div class="skfill sf2" data-w="88"></div></div></div>
+        </div>
+
+        <div class="skcat sc3">
+          <div class="skh"><div class="skico i3">🚀</div><div class="sknm2">Brand &amp; Growth</div></div>
+          <div class="skit"><div class="skrow"><span class="sknm">Brand Development &amp; Marketing</span><span class="skpc p3">93%</span></div><div class="skbar"><div class="skfill sf3" data-w="93"></div></div></div>
+          <div class="skit"><div class="skrow"><span class="sknm">Problem Solving</span><span class="skpc p3">96%</span></div><div class="skbar"><div class="skfill sf3" data-w="96"></div></div></div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CAREER -->
+  <section id="career" class="sec-plain">
+    <div class="wrap">
+      <div class="sh">
+        <span class="slabel">Career</span>
+        <h2 class="stitle">Ventures &amp; <span>Achievements</span></h2>
+        <p class="ssub">A visionary entrepreneur building impactful ventures across transportation, real estate, mining, and publishing.</p>
+        <div class="rule"></div>
+      </div>
+      <div class="career-photo-wrap">
+        <img class="career-photo" src="career-team.png" alt="Mpagi Denis Chris team">
+      </div>
+      <div class="cagrid">
+
+        <div class="cacard cv1">
+          <span class="capr t1">Entrepreneurship</span>
+          <div class="carl">Founder &amp; Entrepreneur</div>
+          <div class="caco">Uganda</div>
+          <div class="cadx">A driven entrepreneur with a proven track record of identifying and seizing business opportunities — building ventures that create lasting value, generate wealth, and transform communities.</div>
+          <div class="bdgs"><span class="bdg">Business Development</span><span class="bdg">Strategy</span><span class="bdg">Investment</span></div>
+        </div>
+
+        <div class="cacard cv2">
+          <span class="capr t2">Luxury Services</span>
+          <div class="carl">Founder – Luxury Transportation Services</div>
+          <div class="caco">Uganda</div>
+          <div class="cadx">Founded and operates a premium luxury transportation company delivering high-end travel experiences for executives, events, and discerning clientele — built around elegance and world-class standards.</div>
+          <div class="bdgs"><span class="bdg">Luxury Brand</span><span class="bdg">Operations</span><span class="bdg">Client Experience</span></div>
+        </div>
+
+        <div class="cacard cv3">
+          <span class="capr t3">Real Estate &amp; Mining</span>
+          <div class="carl">Founder – Sleek Spaces &amp; Mining Company</div>
+          <div class="caco">Uganda</div>
+          <div class="cadx">Founded Sleek Spaces — a luxury property and interior spaces company — alongside a mining venture that explores and unlocks mineral opportunities across Uganda for long-term impact.</div>
+          <div class="bdgs"><span class="bdg">Property</span><span class="bdg">Luxury Spaces</span><span class="bdg">Mining</span><span class="bdg">Resources</span></div>
+        </div>
+
+        <div class="cacard cv4">
+          <span class="capr t4">Publishing</span>
+          <div class="carl">Author</div>
+          <div class="caco">Uganda</div>
+          <div class="cadx">A published author committed to inspiring personal growth and empowering readers. His writing reflects his passion for business, mindset development, and the relentless pursuit of excellence.</div>
+          <div class="bdgs"><span class="bdg">Author</span><span class="bdg">Personal Development</span><span class="bdg">Publishing</span></div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SLEEK SPACES -->
+  <section id="sleek-spaces" class="sec-alt">
+    <div class="wrap">
+      <div class="sh">
+        <span class="slabel">Sleek Spaces</span>
+        <h2 class="stitle">Property, Designed for <span>Living</span></h2>
+        <p class="ssub">Sleek Spaces is a real estate and lifestyle company focused on creating considered properties and elevated spaces. From finding the right property to planning its transformation, we bring vision and practical detail together.</p>
+        <div class="rule"></div>
+      </div>
+
+      <div class="cagrid">
+        <div class="cacard cv1">
+          <span class="capr t1">Real Estate</span>
+          <div class="carl">Property Advisory</div>
+          <div class="cadx">Guidance for discovering, evaluating, and shaping residential and investment property opportunities around your goals and way of life.</div>
+          <div class="bdgs"><span class="bdg">Property Search</span><span class="bdg">Investment</span><span class="bdg">Real Estate</span></div>
+        </div>
+
+        <div class="cacard cv2">
+          <span class="capr t2">Luxury Living</span>
+          <div class="carl">Elevated Homes &amp; Lifestyles</div>
+          <div class="cadx">Spaces that pair comfort, thoughtful details, and timeless style to create a more personal, seamless everyday living experience.</div>
+          <div class="bdgs"><span class="bdg">Luxury Homes</span><span class="bdg">Lifestyle</span><span class="bdg">Interiors</span></div>
+        </div>
+
+        <div class="cacard cv3">
+          <span class="capr t3">Design</span>
+          <div class="carl">Property &amp; Interior Design</div>
+          <div class="cadx">From the first concept to the finishing touches, we help shape functional, cohesive interiors that reflect each client's taste and purpose.</div>
+          <div class="bdgs"><span class="bdg">Space Planning</span><span class="bdg">Interior Design</span><span class="bdg">Finishes</span></div>
+        </div>
+
+        <div class="cacard cv4">
+          <span class="capr t4">Project Planning</span>
+          <div class="carl">From Vision to Delivery</div>
+          <div class="cadx">Clear project planning brings scope, priorities, timelines, and resources into focus to help move property and design projects forward with confidence.</div>
+          <div class="bdgs"><span class="bdg">Project Planning</span><span class="bdg">Development</span><span class="bdg">Coordination</span></div>
+        </div>
+      </div>
+
+      <div style="text-align:center;margin-top:2rem;">
+        <div style="display:inline-flex;align-items:center;gap:.5rem;background:rgba(251,191,36,.12);border:1px solid rgba(251,191,36,.35);color:var(--gold);font-size:.68rem;font-weight:800;letter-spacing:2px;text-transform:uppercase;padding:.38rem 1rem;border-radius:50px;">
+          ⭐
+        </div>
+      </div>
+
+      <div style="text-align:center;margin-top:1.5rem;">
+        <div style="display:inline-flex;align-items:center;gap:.5rem;background:rgba(251,191,36,.12);border:1px solid rgba(251,191,36,.35);color:var(--gold);font-size:.68rem;font-weight:800;letter-spacing:2px;text-transform:uppercase;padding:.38rem 1rem;border-radius:50px;">
+          ⭐
+        </div>
+      </div>
+
+      <div style="text-align:center;margin-top:2.5rem;">
+        <a href="#contact" class="btn bp">Discuss a Project</a>
+      </div>
+    </div>
+  </section>
+
+  <div style="width:100%;max-width:980px;margin:0 auto;padding:0 5%;">
+    <img src="sleek-spaces-glamping.png" alt="Luxury dome accommodation in a green hillside setting" style="display:block;width:100%;max-width:900px;height:auto;margin:0 auto;"/>
+  </div>
+
+  <!-- LIBRARY -->
+  <section id="library" class="sec-alt">
+    <div class="wrap">
+      <div class="sh">
+        <span class="slabel">Library</span>
+        <h2 class="stitle">My <span>Book</span></h2>
+        <p class="ssub">A raw, honest journey through ambition, setbacks, and resilience — from dreams to success, failure, and the courage to rebuild.</p>
+        <div class="rule"></div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;max-width:1000px;margin:0 auto;">
+
+        <!-- Book Image -->
+        <div style="display:flex;justify-content:center;align-items:center;">
+          <div style="position:relative;">
+            <!-- Glow behind book -->
+            <div style="position:absolute;inset:-20px;border-radius:20px;background:radial-gradient(ellipse,rgba(251,191,36,.2) 0%,transparent 70%);filter:blur(20px);"></div>
+            <img src="library-book.png" alt="Life of a Young Entrepreneur – Mpagi Denis Chris"
+                 style="width:100%;max-width:420px;border-radius:16px;display:block;position:relative;z-index:1;
+                        box-shadow:0 30px 80px rgba(0,0,0,.6), 0 0 40px rgba(251,191,36,.15);
+                        filter:brightness(0.72) contrast(1.05);
+                        transition:transform .4s, filter .4s;cursor:pointer;"
+                 onmouseover="this.style.transform='scale(1.04) rotate(-1deg)';this.style.filter='brightness(0.85) contrast(1.05)'"
+                 onmouseout="this.style.transform='scale(1) rotate(0deg)';this.style.filter='brightness(0.72) contrast(1.05)'"/>
+          </div>
+        </div>
+
+        <!-- Book Details -->
+        <div>
+
+          <h3 style="font-size:clamp(1.6rem,3vw,2.2rem);font-weight:900;color:var(--charcoal);line-height:1.15;margin-bottom:.6rem;">
+            Life of a Young<br>
+            <span style="color:var(--charcoal);">Entrepreneur</span>
+          </h3>
+
+          <p style="font-size:.9rem;font-weight:600;color:var(--charcoal);letter-spacing:1px;margin-bottom:1.4rem;">
+            By Mpagi Denis Chris
+          </p>
+
+          <p style="font-size:.92rem;color:var(--muted);line-height:1.8;margin-bottom:1.6rem;">
+            <em>"From Dreams to Success, Failure, and the Courage to Rebuild"</em> — a memoir and guide for young dreamers who refuse to quit. Mpagi Denis Chris shares his real journey of starting with nothing, building from failures, and finding the courage to rebuild.
+          </p>
+
+          <!-- What you'll discover -->
+          <div style="display:flex;flex-direction:column;gap:.75rem;margin-bottom:2rem;">
+            <div style="display:flex;align-items:flex-start;gap:.75rem;">
+              <span style="width:24px;height:24px;border-radius:50%;background:rgba(251,191,36,.15);border:1px solid rgba(251,191,36,.3);display:flex;align-items:center;justify-content:center;font-size:.7rem;flex-shrink:0;color:var(--gold);">✦</span>
+              <span style="font-size:.85rem;color:var(--muted);line-height:1.6;">Lessons from early wins and painful failures</span>
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:.75rem;">
+              <span style="width:24px;height:24px;border-radius:50%;background:rgba(251,191,36,.15);border:1px solid rgba(251,191,36,.3);display:flex;align-items:center;justify-content:center;font-size:.7rem;flex-shrink:0;color:var(--gold);">✦</span>
+              <span style="font-size:.85rem;color:var(--muted);line-height:1.6;">How to stay motivated when everything falls apart</span>
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:.75rem;">
+              <span style="width:24px;height:24px;border-radius:50%;background:rgba(251,191,36,.15);border:1px solid rgba(251,191,36,.3);display:flex;align-items:center;justify-content:center;font-size:.7rem;flex-shrink:0;color:var(--gold);">✦</span>
+              <span style="font-size:.85rem;color:var(--muted);line-height:1.6;">Practical insights on discipline, money &amp; mindset</span>
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:.75rem;">
+              <span style="width:24px;height:24px;border-radius:50%;background:rgba(251,191,36,.15);border:1px solid rgba(251,191,36,.3);display:flex;align-items:center;justify-content:center;font-size:.7rem;flex-shrink:0;color:var(--gold);">✦</span>
+              <span style="font-size:.85rem;color:var(--muted);line-height:1.6;">The mindset shift that turns dreams into action</span>
+            </div>
+          </div>
+
+          <!-- Meta -->
+          <div style="display:flex;gap:1.5rem;margin-bottom:2rem;flex-wrap:wrap;">
+            <div style="text-align:center;">
+              <div style="font-size:1.2rem;font-weight:900;background:var(--g3);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">270</div>
+              <div style="font-size:.68rem;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:1px;">Pages</div>
+            </div>
+            <div style="text-align:center;">
+              <div style="font-size:1.2rem;font-weight:900;background:var(--g3);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">6×9"</div>
+              <div style="font-size:.68rem;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:1px;">Format</div>
+            </div>
+            <div style="text-align:center;">
+              <div style="font-size:1.2rem;font-weight:900;background:var(--g3);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">PB</div>
+              <div style="font-size:.68rem;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:1px;">Paperback</div>
+            </div>
+          </div>
+
+          <div style="display:flex;gap:1rem;flex-wrap:wrap;">
+            <a href="#book-payment" class="btn bp">Get a Copy</a>
+            <a href="#contact" class="btn bo">Contact Author</a>
+          </div>
+          <div id="book-payment" tabindex="-1" style="margin-top:1.5rem;padding:1.25rem;border:1px solid var(--border);border-radius:16px;background:linear-gradient(135deg,var(--bg2),var(--bg3));">
+            <h4 style="font-size:1rem;font-weight:800;color:var(--white);margin-bottom:.6rem;">Pay securely with Mobile Money</h4>
+            <p style="font-size:.85rem;color:var(--muted);line-height:1.7;margin-bottom:.75rem;">Price: <strong>UGX 100,000</strong> per book. Choose Airtel Money or MTN MoMo at secure checkout.</p>
+            <form id="payment-form" class="payment-form">
+              <label>Full name
+                <input name="name" autocomplete="name" maxlength="100" required/>
+              </label>
+              <label>Email address
+                <input name="email" type="email" autocomplete="email" maxlength="254" required/>
+              </label>
+              <label>Mobile Money phone number
+                <input name="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="+256..." maxlength="20" required/>
+              </label>
+              <button id="payment-submit" class="btn bp" type="submit">Continue to secure payment</button>
+            </form>
+            <p id="payment-status" role="status" aria-live="polite" style="font-size:.82rem;color:var(--muted);line-height:1.65;margin-top:.75rem;"></p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="sec-alt">
+    <div class="wrap">
+      <div class="sh">
+        <span class="slabel">Contact</span>
+        <h2 class="stitle">Let's <span>Connect</span></h2>
+        <p class="ssub">Ready to do business or collaborate? Reach out directly through any of the channels below.</p>
+        <div class="rule"></div>
+      </div>
+      <div class="contact-cards">
+
+        <a href="https://wa.me/48780908547" target="_blank" rel="noopener" class="ccard cc1">
+          <div class="ccard-ico">
+            <svg viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+              <path fill="#25D366" d="M16 3.2A12.6 12.6 0 0 0 5.1 22.1L3.5 28l6-1.6A12.8 12.8 0 1 0 16 3.2Zm0 22.9c-2 0-3.9-.5-5.6-1.5l-.4-.2-3.5.9.9-3.4-.2-.4A10.1 10.1 0 1 1 16 26.1Z"/>
+              <path fill="#25D366" d="M22 18.1c-.3-.2-1.9-.9-2.2-1s-.5-.2-.7.2-.8 1-1 1.2-.4.2-.7.1a8.4 8.4 0 0 1-2.6-1.6 9.5 9.5 0 0 1-1.8-2.2c-.2-.3 0-.5.1-.6l.5-.6.3-.5c.1-.2 0-.4 0-.6l-1-2.4c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4s-1.2 1.2-1.2 2.8 1.2 3.2 1.4 3.4c.2.2 2.4 3.6 5.8 4.9.8.3 1.4.5 1.9.6.8.3 1.5.2 2 .1.6-.1 1.9-.8 2.2-1.6s.3-1.5.2-1.6c-.1-.2-.3-.3-.6-.5Z"/>
+            </svg>
+          </div>
+          <div>
+            <div class="ccard-lbl">WhatsApp</div>
+            <div class="ccard-val">+48 780 908 547</div>
+          </div>
+        </a>
+
+        <a href="tel:+256780254228" class="ccard cc2">
+          <div class="ccard-ico">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+              <path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.4 19.4 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.9a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.2-1.3a2 2 0 0 1 2.1-.5c.9.3 1.9.6 2.9.7a2 2 0 0 1 1.8 2.1Z"/>
+            </svg>
+          </div>
+          <div>
+            <div class="ccard-lbl">Telephone — Uganda</div>
+            <div class="ccard-val">+256 780 254 228</div>
+          </div>
+        </a>
+
+        <a href="mailto:chrismpagidenis@gmail.com" class="ccard cc3">
+          <div class="ccard-ico">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path fill="#4285F4" d="M3 6.5v11A1.5 1.5 0 0 0 4.5 19H7V9.2Z"/>
+              <path fill="#34A853" d="M17 19h2.5a1.5 1.5 0 0 0 1.5-1.5v-11L17 9.2Z"/>
+              <path fill="#EA4335" d="M3 6.5 5 5h14l2 1.5-9 7Z"/>
+              <path fill="#C5221F" d="M3 6.5v1.8l4 3V9.2Z"/>
+              <path fill="#FBBC04" d="M21 6.5v1.8l-4 3V9.2Z"/>
+              <path fill="#C5221F" d="M7 9.2v9.8h10V9.2l-5 4Z"/>
+            </svg>
+          </div>
+          <div>
+            <div class="ccard-lbl">Email</div>
+            <div class="ccard-val">chrismpagidenis@gmail.com</div>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="flogo">Mpagi Denis Chris</div>
+    <p>© 2025 Mpagi Denis Chris. All rights reserved.</p>
+    <div class="socials">
+      <a href="https://wa.me/48780908547" target="_blank" class="soc" aria-label="WhatsApp">💬</a>
+      <a href="mailto:chrismpagidenis@gmail.com" class="soc" aria-label="Email">✉️</a>
+      <a href="tel:+256780254228" class="soc" aria-label="Phone">📱</a>
+    </div>
+  </footer>
+
+  <script>
+    const paymentForm = document.getElementById('payment-form');
+    const paymentStatus = document.getElementById('payment-status');
+    const paymentSubmit = document.getElementById('payment-submit');
+    const paymentParams = new URLSearchParams(window.location.search);
+
+    if (paymentForm) {
+      paymentForm.addEventListener('submit', async event => {
+        event.preventDefault();
+        paymentSubmit.disabled = true;
+        paymentStatus.textContent = 'Connecting to secure checkout…';
+
+        try {
+          const formData = new FormData(paymentForm);
+          const response = await fetch('/api/checkout', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              name: formData.get('name'),
+              email: formData.get('email'),
+              phone: formData.get('phone')
+            })
+          });
+          const result = await response.json();
+          if (!response.ok || !result.checkout_url) {
+            throw new Error(result.error || 'Checkout could not be started. Please try again.');
+          }
+          window.location.assign(result.checkout_url);
+        } catch (error) {
+          paymentStatus.textContent = error.message || 'Checkout could not be started. Please try again.';
+          paymentSubmit.disabled = false;
+        }
+      });
+    }
+
+    if (paymentParams.get('payment') === 'verify') {
+      const transactionId = paymentParams.get('transaction_id');
+      const txRef = paymentParams.get('tx_ref');
+      if (paymentParams.get('status') !== 'successful' || !transactionId || !txRef) {
+        paymentStatus.textContent = 'Payment was not completed. You can try again when ready.';
+      } else {
+        paymentStatus.textContent = 'Verifying your payment securely…';
+        fetch(`/api/verify?transaction_id=${encodeURIComponent(transactionId)}&tx_ref=${encodeURIComponent(txRef)}`)
+          .then(async response => {
+            const result = await response.json();
+            if (!response.ok || result.status !== 'successful') {
+              throw new Error(result.error || 'Payment verification failed. Please contact the author before retrying.');
+            }
+            paymentStatus.textContent = 'Payment confirmed. Thank you! We will contact you about your book.';
+            paymentForm.hidden = true;
+          })
+          .catch(error => {
+            paymentStatus.textContent = error.message || 'Payment verification failed. Please contact the author.';
+          })
+          .finally(() => window.history.replaceState({}, document.title, window.location.pathname + window.location.hash));
+      }
+    }
+
+    const navEl = document.getElementById('nav');
+    const hamEl = document.getElementById('ham');
+    const nlEl  = document.getElementById('nl');
+    const links = document.querySelectorAll('.na');
+
+    window.addEventListener('scroll', () => {
+      navEl.classList.toggle('scrolled', window.scrollY > 60);
+      let cur = 'home';
+      document.querySelectorAll('section[id]').forEach(s => {
+        if (window.scrollY >= s.offsetTop - 140) cur = s.id;
+      });
+      links.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + cur));
+    });
+
+    hamEl.addEventListener('click', () => {
+      const o = hamEl.classList.toggle('open');
+      nlEl.classList.toggle('open', o);
+      hamEl.setAttribute('aria-expanded', o);
+    });
+    links.forEach(a => a.addEventListener('click', () => {
+      hamEl.classList.remove('open'); nlEl.classList.remove('open');
+      hamEl.setAttribute('aria-expanded', false);
+    }));
+
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.style.width = e.target.dataset.w + '%';
+          obs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.3 });
+    document.querySelectorAll('.skfill').forEach(f => obs.observe(f));
+  </script>
+</body>
+</html>
